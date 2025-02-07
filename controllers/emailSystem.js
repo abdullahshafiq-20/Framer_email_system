@@ -50,10 +50,11 @@ const generateAdminEmailTemplate = (data) => {
 // Send email controller
 export const sendEmail = async (req, res) => {
     try {
-        const { userName, userEmail, subject, message } = req.body;
+        const { first_name, last_name,  userEmail, message } = req.body;
+        const userName = first_name + " " + last_name;
 
         // Validate input
-        if (!userName || !userEmail || !subject || !message) {
+        if (!userName || !userEmail || !message) {
             return res.status(400).json({
                 success: false,
                 message: 'Please provide all required fields'
@@ -64,7 +65,7 @@ export const sendEmail = async (req, res) => {
         const emailData = {
             userName,
             userEmail,
-            subject,
+            subject : 'New Contact Form Submission from ' + userName,
             message
         };
 
